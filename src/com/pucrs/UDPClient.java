@@ -6,6 +6,7 @@ package com.pucrs;
 
 import java.io.*; // classes para input e output streams e
 import java.net.*;// DatagramaSocket,InetAddress,DatagramaPacket
+import java.util.stream.Collectors;
 
 public class UDPClient {
     public static void main(String args[]) throws Exception
@@ -22,7 +23,7 @@ public class UDPClient {
         byte[] sendData = new byte[1024];
 
         // l� uma linha do teclado
-        String sentence = inFromUser.readLine();
+        String sentence = inFromUser.lines().collect(Collectors.joining());
         sendData = sentence.getBytes();
 
         // cria pacote com o dado, o endere�o do server e porta do servidor
@@ -31,6 +32,7 @@ public class UDPClient {
         //envia o pacote
         clientSocket.send(sendPacket);
 
+        inFromUser.close();
         // fecha o cliente
         clientSocket.close();
     }

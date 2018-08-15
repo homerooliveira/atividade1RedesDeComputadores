@@ -13,7 +13,6 @@ public class UDPServer {
     {
         // cria socket do servidor com a porta 9876
         DatagramSocket serverSocket = new DatagramSocket(9876);
-
         byte[] receiveData = new byte[1024];
         while(true) {
             // declara o pacote a ser recebido
@@ -24,11 +23,11 @@ public class UDPServer {
 
             // pega os dados, o endere�o IP e a porta do cliente
             // para poder mandar a msg de volta
-            String sentence = new String(receivePacket.getData()).replaceAll("\u0000.*", "");
+            String sentence = new String(receivePacket.getData(), receivePacket.getOffset(), receivePacket.getLength())
+                    .replaceAll("\u0000.*", "");
 
             InetAddress IPAddress = receivePacket.getAddress();
             int port = receivePacket.getPort();
-
             System.out.println("Mensagem recebida: " + sentence);
         }
     }
