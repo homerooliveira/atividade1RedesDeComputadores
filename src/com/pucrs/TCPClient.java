@@ -12,7 +12,7 @@ public class TCPClient {
 
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
-        String sentence = inFromUser.readLine();
+        String sentence = inFromUser.lines().collect(Collectors.joining());
 
         outToServer.writeBytes(sentence);
 
